@@ -10,14 +10,14 @@ const HouseDetails = ({ house }) => {
   const handleBookingSubmit = (formData) => {
     console.log("Form submitted with data:", formData);
     axios
-      .post("http://localhost:5000/book", {
+      .post("http://localhost:5000/api/book", {
         ...formData,
         houseId: house.id,
       })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    alert("Property booked!");
-    setShowForm(false);
+    // alert("Property booked!");
+    // setShowForm(false);
   };
 
   const handleBookingClick = () => {

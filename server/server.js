@@ -1,7 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const axios = require("axios");
 const { DBConn, allowedOrigins } = require("./src/config");
+const { sendSMS } = require("./src/utils/sendsms");
 
 const app = express();
 app.use(express.json());
@@ -20,9 +22,9 @@ app.use(
   })
 );
 
-app.use("/api", require("./routes/index"));
+app.use("/api", require("./src/routes/index"));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 const pingInterval = 840000; // 14 minutes in milliseconds
 
@@ -49,6 +51,8 @@ function pingSelf() {
 }
 
 // Set up the interval to ping your service every 14 minutes
-setInterval(pingSelf, pingInterval);
+// setInterval(pingSelf, pingInterval);
 
 DBConn(app, port);
+
+sendSMS("Hello, your booking has been received", "254748517525");
