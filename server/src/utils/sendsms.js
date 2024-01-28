@@ -1,31 +1,35 @@
 require("dotenv").config();
 
-const twilio = require("twilio");
-const { RequestClient } = twilio;
+async function sendSMS(body, recipient) {
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `App ${process.env.INFOBIP_API_KEY}`);
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Accept", "application/json");
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+  var raw = JSON.stringify({
+    messages: [
+      {
+        destinations: [{ to: recipient }],
+        from: "ServiceSMS",
+        text: body,
+      },
+    ],
+  });
 
-const client = new twilio(accountSid, authToken, {
-  httpClient: new RequestClient({ timeout: 500000 }),
-});
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
 
-function sendSMS(body, recipient) {
-  client.messages
-    .create({
-      body: body, // SMS content
-      to: recipient, // Recipient's number
-      from: "+12062022568", // Replace with your Twilio number
-    })
-    .then((message) => {
-      console.log("Message sent successfully.");
-      console.log("Message SID: " + message.sid);
-      console.log("Message Status: " + message.status);
-      console.log("Date Sent: " + message.dateSent);
-    })
-    .catch((error) => {
-      console.error("Error sending SMS: ", error);
-    });
+  await fetch(
+    "https://3g1e1n.api.infobip.com/sms/2/text/advanced",
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 module.exports = { sendSMS };
