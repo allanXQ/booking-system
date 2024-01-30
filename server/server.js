@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const { DBConn, allowedOrigins } = require("./src/config");
-const { sendSMS } = require("./src/utils/sendsms");
 
 const app = express();
 app.use(express.json());
@@ -54,5 +53,3 @@ function pingSelf() {
 // setInterval(pingSelf, pingInterval);
 
 DBConn(app, port);
-
-sendSMS("Hello, your booking has been received", "254748517525");
