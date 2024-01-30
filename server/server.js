@@ -23,7 +23,7 @@ app.use(
 
 app.use("/api", require("./src/routes/index"));
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 const pingInterval = 840000; // 14 minutes in milliseconds
 

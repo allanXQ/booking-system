@@ -1,9 +1,9 @@
 require("dotenv").config();
 const { default: mongoose } = require("mongoose");
-const { sendSMS } = require("../utils/sendsms");
+const { sendSMS } = require("../../utils/sendsms");
 const crypto = require("crypto");
 
-const tinypesaWebhook = async (req, res) => {
+const confirmPayment = async (req, res) => {
   try {
     const { Msisdn, Amount, ResultDesc, ResultCode, MpesaReceiptNumber } =
       req.body;
@@ -17,4 +17,4 @@ const tinypesaWebhook = async (req, res) => {
   }
 };
 
-module.exports = { tinypesaWebhook };
+module.exports = { confirmPayment };

@@ -1,10 +1,13 @@
 const router = require("express").Router();
 const { book } = require("../controllers/book");
-const { pay } = require("../controllers/pay");
-const { tinypesaWebhook } = require("../controllers/tinypesaWebhook");
+
+const { generateSTKPush } = require("../controllers/pay/generateSTKPush");
+const { darajaWebhook } = require("../controllers/pay/darajaWebhook");
+const { confirmPayment } = require("../controllers/pay/confirmPayment");
 
 router.post("/book", book);
-router.post("/pay", pay);
-router.post("/tinypesa/webhook", tinypesaWebhook);
+router.post("/pay", generateSTKPush);
+router.post("/daraja/webhook", darajaWebhook);
+router.post("/daraja/confirmation", confirmPayment);
 
 module.exports = router;
