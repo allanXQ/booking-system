@@ -18,7 +18,6 @@ const generateAccessToken = async () => {
     });
 
     const dataresponse = response.data;
-    // console.log(data);
     const accessToken = dataresponse.access_token;
     return accessToken;
   } catch (error) {
