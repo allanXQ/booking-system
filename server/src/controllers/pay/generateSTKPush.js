@@ -10,44 +10,46 @@ const { getTimestamp } = require("../../utils/timestamp"); // Assuming you have 
 // @route /stkPush
 // @access public
 const generateSTKPush = async (req, res) => {
-  try {
-    const accessToken = await generateAccessToken();
-    console.log(accessToken);
-    const timestamp = getTimestamp();
-    const password = Buffer.from(
-      `${process.env.BUSINESS_SHORT_CODE}${process.env.PASS_KEY}${timestamp}`
-    ).toString("base64");
+  const accessToken = await generateAccessToken();
+  const timestamp = getTimestamp();
+  const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+  const password = Buffer.from(
+    `${process.env.BUSINESS_SHORT_CODE}${process.env.PASS_KEY}${timestamp}`
+  ).toString("base64");
+  const auth = `Bearer ${accessToken}`;
 
-    const requestBody = {
-      BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
-      Password: password,
-      Timestamp: timestamp,
-      TransactionType: "CustomerBuyGoodsOnline", // Or 'CustomerBuyGoodsOnline' depending on your use case
-      Amount: req.body.amount, // Amount to be transacted
-      PartyA: req.body.phone, // Phone number initiating the transaction
-      PartyB: process.env.BUSINESS_SHORT_CODE, // Usually the same as BusinessShortCode
-      PhoneNumber: req.body.phone, // Phone number to receive STK prompt
-      CallBackURL: "https://yourdomain.com/path/to/your/callback", // Your callback URL
-      AccountReference: "Your Reference", // A reference for the transaction
-      TransactionDesc: "Payment Description", // A description for the transaction
-    };
-
-    const response = await axios.post(
-      "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
-      requestBody,
+  axios
+    .post(
+      url,
+      {
+        BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
+        Password: password,
+        Timestamp: timestamp,
+        TransactionType: "CustomerBuyGoodsOnline",
+        Amount: "10",
+        PartyA: req.body.phone, //phone number to receive the stk push
+        PartyB: process.env.BUSINESS_SHORT_CODE,
+        PhoneNumber: req.body.phone, //phone number to receive the stk push
+        CallBackURL: "https://google.com",
+        AccountReference: "UMESKIA PAY",
+        TransactionDesc: "Mpesa Daraja API stk push test",
+      },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
+          Authorization: auth,
         },
       }
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    // console.log(error);
-    res.status(500).json({ error });
-  }
+    )
+    .then((response) => {
+      res.send(
+        "😀 Request is successful done ✔✔. Please enter mpesa pin to complete the transaction"
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send("❌ Request failed");
+    });
 };
 
 module.exports = {
