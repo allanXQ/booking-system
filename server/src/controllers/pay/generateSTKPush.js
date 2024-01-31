@@ -16,7 +16,7 @@ const generateSTKPush = async (req, res) => {
   const password = Buffer.from(
     `${process.env.BUSINESS_SHORT_CODE}${process.env.PASS_KEY}${timestamp}`
   ).toString("base64");
-  const auth = `Bearer ${accessToken}`;
+  const auth = "Bearer KuotGTeG5DZJZacKDc9q1YZkQVOh"; //+ accessToken;
 
   axios
     .post(
@@ -25,7 +25,7 @@ const generateSTKPush = async (req, res) => {
         BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
         Password: password,
         Timestamp: timestamp,
-        TransactionType: "CustomerBuyGoodsOnline",
+        TransactionType: "CustomerPayBillOnline",
         Amount: "10",
         PartyA: req.body.phone, //phone number to receive the stk push
         PartyB: process.env.BUSINESS_SHORT_CODE,
