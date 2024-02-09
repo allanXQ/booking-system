@@ -16,22 +16,22 @@ const generateSTKPush = async (req, res) => {
   const password = Buffer.from(
     `${process.env.BUSINESS_SHORT_CODE}${process.env.PASS_KEY}${timestamp}`
   ).toString("base64");
-  const auth = "Bearer KuotGTeG5DZJZacKDc9q1YZkQVOh"; //+ accessToken;
+  const auth = `Bearer ${accessToken}`;
 
   axios
     .post(
       url,
       {
-        BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
+        BusinessShortCode: 6761520, //process.env.BUSINESS_SHORT_CODE,
         Password: password,
         Timestamp: timestamp,
-        TransactionType: "CustomerPayBillOnline",
-        Amount: "10",
-        PartyA: req.body.phone, //phone number to receive the stk push
-        PartyB: process.env.BUSINESS_SHORT_CODE,
-        PhoneNumber: req.body.phone, //phone number to receive the stk push
-        CallBackURL: "https://google.com",
-        AccountReference: "UMESKIA PAY",
+        TransactionType: "CustomerBuyGoodsOnline",
+        Amount: 10,
+        PartyA: 254748517525, //req.body.phone, //phone number to receive the stk push
+        PartyB: 4191394, //process.env.BUSINESS_SHORT_CODE,
+        PhoneNumber: 254748517525, //req.body.phone, //phone number to receive the stk push
+        CallBackURL: "https://hive.render.com/mpesacallback",
+        AccountReference: "test",
         TransactionDesc: "Mpesa Daraja API stk push test",
       },
       {
