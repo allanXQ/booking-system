@@ -5,7 +5,7 @@ const generateAccessToken = async () => {
   const consumerKey = process.env.SAFARICOM_CONSUMER_KEY;
   const consumerSecret = process.env.SAFARICOM_CONSUMER_SECRET;
   const url =
-    "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+    "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
   const auth =
     "Basic " +
     new Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64");
@@ -21,7 +21,7 @@ const generateAccessToken = async () => {
     const accessToken = dataresponse.access_token;
     return accessToken;
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
 

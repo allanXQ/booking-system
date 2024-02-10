@@ -3,34 +3,31 @@ require("dotenv").config();
 const axios = require("axios");
 
 const { generateAccessToken } = require("../../utils/generateAccessToken");
-const { getTimestamp } = require("../../utils/timestamp"); // Assuming you have this utility function
+const { getTimestamp } = require("../../utils/timestamp");
 
-// @desc initiate stk push
-// @method POST
-// @route /stkPush
-// @access public
 const generateSTKPush = async (req, res) => {
-  const accessToken = await generateAccessToken();
-  const timestamp = getTimestamp();
-  const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
-  const password = Buffer.from(
-    `${process.env.BUSINESS_SHORT_CODE}${process.env.PASS_KEY}${timestamp}`
-  ).toString("base64");
-  const auth = `Bearer ${accessToken}`;
+  try {
+    const accessToken = await generateAccessToken();
+    const timestamp = getTimestamp();
+    const url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+    const auth = `Bearer ${accessToken}`;
+    const password = Buffer.from(
+      `${process.env.BUSINESS_SHORT_CODE}${process.env.PASSKEY}${timestamp}`
+    ).toString("base64");
 
-  axios
-    .post(
+    const stkpush = await axios.post(
       url,
       {
-        BusinessShortCode: 6761520, //process.env.BUSINESS_SHORT_CODE,
+        BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
         Password: password,
         Timestamp: timestamp,
         TransactionType: "CustomerBuyGoodsOnline",
         Amount: 10,
-        PartyA: 254748517525, //req.body.phone, //phone number to receive the stk push
-        PartyB: 4191394, //process.env.BUSINESS_SHORT_CODE,
-        PhoneNumber: 254748517525, //req.body.phone, //phone number to receive the stk push
-        CallBackURL: "https://hive.render.com/mpesacallback",
+        PartyA: req.body.phone,
+        PartyB: process.env.BUSINESS_SHORT_CODE,
+        PhoneNumber: req.body.phone,
+        CallBackURL:
+          "https://07bf-196-106-224-50.ngrok-free.app/api/daraja/webhook",
         AccountReference: "test",
         TransactionDesc: "Mpesa Daraja API stk push test",
       },
@@ -40,16 +37,13 @@ const generateSTKPush = async (req, res) => {
           Authorization: auth,
         },
       }
-    )
-    .then((response) => {
-      res.send(
-        "😀 Request is successful done ✔✔. Please enter mpesa pin to complete the transaction"
-      );
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send("❌ Request failed");
-    });
+    );
+
+    res.json(stkpush.data);
+  } catch (error) {
+    console.log(error?.response?.data);
+    res.status(400).json({ message: error.message });
+  }
 };
 
 module.exports = {

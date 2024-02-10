@@ -5,11 +5,12 @@ const crypto = require("crypto");
 
 const darajaWebhook = async (req, res) => {
   try {
+    console.log(req.body);
     const { Msisdn, Amount, ResultDesc, ResultCode, MpesaReceiptNumber } =
       req.body;
     const body = `You booking confirmation code is- ${crypto.randomBytes(256)}`;
 
-    await sendSMS(body, Msisdn);
+    // await sendSMS(body, Msisdn);
 
     return res.status(200).json({ message: "payment success" });
   } catch (error) {
