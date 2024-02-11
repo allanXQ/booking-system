@@ -24,7 +24,6 @@ const book = async (req, res) => {
       }
     })
     .catch((error) => {
-      console.log("book", error);
       res.status(500).json({ error });
     });
 };
