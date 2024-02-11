@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-const { DBConn, allowedOrigins } = require("./src/config");
+const { allowedOrigins } = require("./src/config");
 
 const app = express();
 app.use(express.json());
