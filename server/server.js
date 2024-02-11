@@ -31,10 +31,9 @@ function pingSelf() {
   const currentDateTime = new Date();
   const currentHourEAT = currentDateTime.getUTCHours() + 3; // Convert UTC to EAT (UTC+3)
 
-  // Check if current time is between 6 AM and 12 PM EAT
   if (currentHourEAT >= 6 && currentHourEAT < 24) {
     axios
-      .get("https://booking-server.onrender.com/")
+      .get("https://booking-server-76dj.onrender.com")
       .then((response) => {
         console.log("Service pinged successfully:", response.status);
       })
@@ -50,7 +49,7 @@ function pingSelf() {
 }
 
 // Set up the interval to ping your service every 14 minutes
-// setInterval(pingSelf, pingInterval);
+setInterval(pingSelf, pingInterval);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

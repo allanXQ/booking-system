@@ -10,7 +10,7 @@ const HouseDetails = ({ house }) => {
   const handleBookingSubmit = (formData) => {
     console.log("Form submitted with data:", formData);
     axios
-      .post("http://localhost:5000/api/book", {
+      .post("https://booking-server-76dj.onrender.com/api/book", {
         ...formData,
         houseId: house.id,
       })
