@@ -52,4 +52,6 @@ function pingSelf() {
 // Set up the interval to ping your service every 14 minutes
 // setInterval(pingSelf, pingInterval);
 
-DBConn(app, port);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
