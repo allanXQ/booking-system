@@ -84,6 +84,7 @@ const BookingForm = ({ onSubmit, onClose }) => {
             type="tel"
             id="phoneNumber"
             name="phoneNumber"
+            placeholder="254...."
             value={formData.phoneNumber}
             onChange={handleInputChange}
             required
