@@ -3,6 +3,7 @@ const DBConn = require("./dbConn");
 const allowedOrigins = [
   "http://localhost:3000",
   "https://bookingclientproto.vercel.app/",
+  "https://bookingclientproto.vercel.app",
 ];
 
 const roles = {
