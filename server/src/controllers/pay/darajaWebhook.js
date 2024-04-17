@@ -45,6 +45,8 @@ const darajaWebhook = async (req, res) => {
     const TransactionDate = Body.stkCallback.CallbackMetadata.Item[3].Value;
     const Msisdn = Body.stkCallback.CallbackMetadata.Item[4].Value;
 
+    console.log(Body.stkCallback.CallbackMetadata);
+
     const randomCode = generateRandomCode();
 
     const body = `You booking confirmation code is- ${randomCode}. Please keep it safe. Thank you for using our services.`;
