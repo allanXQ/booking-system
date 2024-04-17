@@ -28,13 +28,13 @@ const generateRandomCode = () => {
 
 const darajaWebhook = async (req, res) => {
   try {
-    // const ip = req.headers["x-forwarded-for"]
-    //   ?.split(",")
-    //   ?.map((ip) => ip.trim())[1];
-    // if (!whitelist.includes(ip)) {
-    //   console.log("IP not allowed");
-    //   return res.status(403).json({ message: "You are not allowed" });
-    // }
+    const ip = req.headers["x-forwarded-for"]
+      ?.split(",")
+      ?.map((ip) => ip.trim())[1];
+    if (!whitelist.includes(ip)) {
+      console.log("IP not allowed");
+      return res.status(403).json({ message: "You are not allowed" });
+    }
     const { Body } = req.body;
     if (Body.stkCallback.ResultCode !== 0) {
       return res.status(400).json({ message: "payment failed" });
