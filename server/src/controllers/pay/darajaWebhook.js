@@ -50,7 +50,7 @@ const darajaWebhook = async (req, res) => {
     const body = `You booking confirmation code is- ${randomCode}. Please keep it safe. Thank you for using our services.`;
 
     await sendSMS(body, Msisdn);
-    consolelog("sms sent");
+    console.log("sms sent");
     return res.status(200).json({ message: "payment success" });
   } catch (error) {
     console.log(error);
