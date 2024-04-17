@@ -26,7 +26,8 @@ const generateSTKPush = async (req, res) => {
         PartyA: req.body.phone,
         PartyB: process.env.PARTYB,
         PhoneNumber: req.body.phone,
-        CallBackURL: "https://booking-server-76dj.onrender.com/api/daraja",
+        CallBackURL:
+          "https://booking-server-76dj.onrender.com/api/daraja/webhook",
         AccountReference: "test",
         TransactionDesc: "Mpesa Daraja API stk push test",
       },
