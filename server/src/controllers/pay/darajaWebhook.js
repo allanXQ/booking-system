@@ -42,7 +42,7 @@ const darajaWebhook = async (req, res) => {
     if (Body.stkCallback.ResultCode !== 0) {
       return res.status(400).json({ message: "payment failed" });
     }
-    const Msisdn = Body?.stkCallback?.CallbackMetadata?.Item[4]?.Value;
+    const Msisdn = Body.stkCallback.CallbackMetadata.Item[3].Value;
 
     const randomCode = generateRandomCode();
 
