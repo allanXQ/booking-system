@@ -10,9 +10,8 @@ const housedata = [
     id: 1,
     title: "Homestead",
     image_url:
-      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/468518948.jpg?k=bf90ce6fc72cba0193a31d08f5915b4cae9bc67fff126944ecc5c1847f89a800&o=&hp=1",
-    rent: 4507,
-    size: "2273 sq ft",
+      "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600",
+    size: "2273",
     room_available_count: 4,
     available_from: "2022-09-08",
     description:
@@ -22,9 +21,9 @@ const housedata = [
     id: 2,
     title: "Sanctuary",
     image_url:
-      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/468518948.jpg?k=bf90ce6fc72cba0193a31d08f5915b4cae9bc67fff126944ecc5c1847f89a800&o=&hp=1",
+      "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600",
     rent: 4177,
-    size: "1369 sq ft",
+    size: "1369",
     room_available_count: 3,
     available_from: "2022-07-22",
     description:
@@ -34,9 +33,9 @@ const housedata = [
     id: 3,
     title: "Retreat",
     image_url:
-      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/468518948.jpg?k=bf90ce6fc72cba0193a31d08f5915b4cae9bc67fff126944ecc5c1847f89a800&o=&hp=1",
+      "https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=600",
     rent: 3120,
-    size: "1493 sq ft",
+    size: "1493",
     room_available_count: 4,
     available_from: "2022-09-10",
     description:
@@ -46,9 +45,9 @@ const housedata = [
     id: 4,
     title: "Loft",
     image_url:
-      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/468518948.jpg?k=bf90ce6fc72cba0193a31d08f5915b4cae9bc67fff126944ecc5c1847f89a800&o=&hp=1",
+      "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=600",
     rent: 4314,
-    size: "1704 sq ft",
+    size: "1704",
     room_available_count: 5,
     available_from: "2022-12-03",
     description:
