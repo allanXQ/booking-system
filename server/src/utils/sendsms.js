@@ -15,6 +15,7 @@ async function sendSMS(body, recipient) {
       },
     ],
   });
+  console.log(body, recipient);
 
   var requestOptions = {
     method: "POST",
