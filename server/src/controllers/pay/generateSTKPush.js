@@ -15,8 +15,6 @@ const generateSTKPush = async (req, res) => {
       `${process.env.BUSINESS_SHORT_CODE}${process.env.PASSKEY}${timestamp}`
     ).toString("base64");
 
-    const callbackUrl = "https://tinywebhook.onrender.com/api/daraja/webhook";
-
     const stkpush = await axios.post(
       url,
       {
@@ -28,7 +26,8 @@ const generateSTKPush = async (req, res) => {
         PartyA: req.body.phone,
         PartyB: process.env.PARTYB,
         PhoneNumber: req.body.phone,
-        CallBackURL: callbackUrl,
+        CallBackURL:
+          "https://booking-server-76dj.onrender.com/api/daraja/webhook",
         AccountReference: "test",
         TransactionDesc: "Mpesa Daraja API stk push test",
       },
