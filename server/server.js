@@ -33,7 +33,7 @@ function pingSelf() {
 
   if (currentHourEAT >= 6 && currentHourEAT < 24) {
     axios
-      .get("https://booking-server-76dj.onrender.com")
+      .get("https://booking-server-76dj.onrender.com/")
       .then((response) => {
         console.log("Service pinged successfully:", response.status);
       })

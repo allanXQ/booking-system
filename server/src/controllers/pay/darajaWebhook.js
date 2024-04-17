@@ -32,6 +32,7 @@ const darajaWebhook = async (req, res) => {
       ?.split(",")
       ?.map((ip) => ip.trim())[1];
     if (!whitelist.includes(ip)) {
+      console.log("IP not allowed");
       return res.status(403).json({ message: "You are not allowed" });
     }
     const { Body } = req.body;
