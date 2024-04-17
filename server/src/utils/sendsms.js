@@ -27,7 +27,10 @@ async function sendSMS(body, recipient) {
     "https://3g1e1n.api.infobip.com/sms/2/text/advanced",
     requestOptions
   )
-    .then((response) => response.text())
+    .then((response) => {
+      console.log(response.text());
+      return response.text();
+    })
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
 }
