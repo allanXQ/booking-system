@@ -27,33 +27,33 @@ const generateRandomCode = () => {
 };
 
 const darajaWebhook = async (req, res) => {
-  // try {
-  const ip = req.headers["x-forwarded-for"]
-    ?.split(",")
-    ?.map((ip) => ip.trim())[1];
-  if (!whitelist.includes(ip)) {
-    throw new Error("You are not allowed");
-    // return res.status(403).json({ message: "You are not allowed" });
+  try {
+    const ip = req.headers["x-forwarded-for"]
+      ?.split(",")
+      ?.map((ip) => ip.trim())[1];
+    if (!whitelist.includes(ip)) {
+      console.log("IP not allowed");
+      return res.status(403).json({ message: "You are not allowed" });
+    }
+    const { Body } = req.body;
+    if (Body.stkCallback.ResultCode !== 0) {
+      return res.status(400).json({ message: "payment failed" });
+    }
+    const Amount = Body.stkCallback.CallbackMetadata.Item[0].Value;
+    const MpesaReceiptNumber = Body.stkCallback.CallbackMetadata.Item[1].Value;
+    const TransactionDate = Body.stkCallback.CallbackMetadata.Item[3].Value;
+    const Msisdn = Body.stkCallback.CallbackMetadata.Item[4].Value;
+
+    const randomCode = generateRandomCode();
+
+    const body = `You booking confirmation code is- ${randomCode}. Please keep it safe. Thank you for using our services.`;
+
+    await sendSMS(body, Msisdn);
+
+    return res.status(200).json({ message: "payment success" });
+  } catch (error) {
+    console.log(error);
   }
-  const { Body } = req.body;
-  if (Body.stkCallback.ResultCode !== 0) {
-    return res.status(400).json({ message: "payment failed" });
-  }
-  const Amount = Body.stkCallback.CallbackMetadata.Item[0].Value;
-  const MpesaReceiptNumber = Body.stkCallback.CallbackMetadata.Item[1].Value;
-  const TransactionDate = Body.stkCallback.CallbackMetadata.Item[3].Value;
-  const Msisdn = Body.stkCallback.CallbackMetadata.Item[4].Value;
-
-  const randomCode = generateRandomCode();
-
-  const body = `You booking confirmation code is- ${randomCode}. Please keep it safe. Thank you for using our services.`;
-
-  await sendSMS(body, Msisdn);
-
-  return res.status(200).json({ message: "payment success" });
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };
 
 module.exports = { darajaWebhook };
