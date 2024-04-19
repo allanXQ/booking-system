@@ -28,7 +28,13 @@ const HouseDetails = ({ house }) => {
     <div className="max-w-xl mx-auto bg-white p-8 shadow-md rounded-md">
       <h2 className="text-xl font-bold mb-4">{house.title}</h2>
       <img
-        src={house.image_url}
+        src={
+          house.title === "Standard"
+            ? "https://st3.depositphotos.com/1006542/13733/i/1600/depositphotos_137336964-stock-photo-roadside-motel-room-interior.jpg"
+            : house.title === "Deluxe"
+            ? "https://st3.depositphotos.com/11388896/36722/i/1600/depositphotos_367224568-stock-photo-wendover-nevada-july-2018-king.jpg"
+            : "https://st3.depositphotos.com/1006542/13734/i/1600/depositphotos_137341932-stock-photo-interior-of-bedroom-in-hotel.jpg"
+        }
         alt={house.title}
         className="mb-4 rounded-md w-full"
       />
