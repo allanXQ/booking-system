@@ -7,7 +7,7 @@ const housedata = [
     id: "101",
     title: "Standard",
     availableFrom: "2024-04-20",
-    price: 75,
+    price: 7500,
     description:
       "A cozy and affordable room with essential amenities perfect for short stays.",
     amenities: ["WiFi", "Air Conditioning", "Television"],
@@ -16,7 +16,7 @@ const housedata = [
     id: "201",
     title: "Deluxe",
     availableFrom: "2024-04-19",
-    price: 95,
+    price: 9500,
     description:
       "A spacious room with upgraded furnishings and additional amenities for enhanced comfort.",
     amenities: ["WiFi", "Air Conditioning", "Television", "Mini Fridge"],
@@ -25,7 +25,7 @@ const housedata = [
     id: "301",
     title: "Suite",
     availableFrom: "2024-04-20",
-    price: 150,
+    price: 15000,
     description:
       "A luxurious suite offering a premium experience with full amenities and exclusive features.",
     amenities: [
