@@ -37,12 +37,26 @@ const darajaWebhook = async (req, res) => {
       return res.status(403).json({ message: "You are not allowed" });
     }
     const { Body } = req.body;
-    console.log(Body.stkCallback.CallbackMetadata);
+    const { stkCallback } = req.body.Body;
+    const {
+      MerchantRequestID,
+      CheckoutRequestID,
+      ResultCode,
+      ResultDesc,
+      CallbackMetadata,
+    } = stkCallback;
 
-    if (Body.stkCallback.ResultCode !== 0) {
+    let metadata = {};
+    if (CallbackMetadata && CallbackMetadata.Item) {
+      CallbackMetadata.Item.forEach((item) => {
+        metadata[item.Name] = item.Value;
+      });
+    }
+
+    if (ResultCode !== 0) {
       return res.status(400).json({ message: "payment failed" });
     }
-    const Msisdn = Body.stkCallback.CallbackMetadata.Item[3].Value;
+    const Msisdn = metadata["PhoneNumber"];
 
     const randomCode = generateRandomCode();
 
